@@ -19,25 +19,17 @@ const errors = ref({
 })
 
 function submit() {
-  // axiosClient.get('/sanctum/csrf-cookie').then(response => {
-  //   axiosClient.post("/register", data.value)
-  //       .then(response => {
-  //         router.push({name: 'Home'})
-  //       })
-  //       .catch(error => {
-  //         console.log(error.response.data)
-  //         errors.value = error.response.data.errors;
-  //       })
-  // });
+  axiosClient.get('/sanctum/csrf-cookie').then(response => { //ohne das würde nur eine der beiden anfragen erfolgreich sein, ohne das hätten wir keine cors/cores/kors/course- probleme aber dafür csrf also das eigentliche register würde nciht funktionieren
+    axiosClient.post("/register", data.value)
+        .then(response => {
+          router.push({name: 'Home'})
+        })
+        .catch(error => {
+          console.log(error.response.data)
+          errors.value = error.response.data.errors;
+        })
+  });
 
-  axiosClient.post("/register", data.value)
-      .then(response => {
-        router.push({name: 'Home'})
-      })
-      .catch(error => {
-        console.log(error.response.data)
-        errors.value = error.response.data.errors;
-      })
 
 }
 
