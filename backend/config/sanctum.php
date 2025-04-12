@@ -15,6 +15,11 @@ return [
     |
     */
 
+
+
+    /*
+   SEHR WICHTIG!!! je nachdem auf welchem port unsere vite app läuft, muss überprüft werden ob dieser port in den stateful domains hinterelegt wurde. Wenn nicht entweder hier hinzufügen oder viteport auf eins der stateful domains setzen
+   */
     'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
         '%s%s%s',
         'localhost,localhost:5173, localhost:3000,127.0.0.1,127.0.0.1:3000,127.0.0.1:8000,::1',
