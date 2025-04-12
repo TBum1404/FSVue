@@ -5,15 +5,25 @@ import MyImages from "./pages/MyImages.vue";
 import Login from "./pages/Login.vue";
 import Signup from "./pages/Signup.vue";
 import NotFound from "./pages/NotFound.vue";
+import useUserStore from "./store/user.js";
 
 const routes = [
     {
-        path:"/",
+        path: "/",
         component: DefaultLayout,
-        children:[
-            {path: '/', name:'Home', component: Home},
-            {path: '/images', name:'MyImages', component: MyImages},
-        ]
+        children: [
+            {path: '/', name: 'Home', component: Home},
+            {path: '/images', name: 'MyImages', component: MyImages},
+        ],
+        beforeEnter: async (to, from, next) => {
+            try {
+                const userStore = useUserStore();
+                await userStore.fetchUser();
+                next();
+            } catch (error) {
+                next(false); // Cancel navigation if data fetching fails
+            }
+        },
     },
     {
         path: '/login',
@@ -26,15 +36,15 @@ const routes = [
         component: Signup,
     },
     {
-        path :'/:pathMatch(.*)*',
+        path: '/:pathMatch(.*)*',
         name: 'NotFound',
-        component: NotFound,
+        component: NotFound
     },
-]
+];
 
 const router = createRouter({
     history: createWebHistory(),
     routes
 })
 
-export default router;
+export default router

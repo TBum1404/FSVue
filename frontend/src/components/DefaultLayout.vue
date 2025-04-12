@@ -97,23 +97,22 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import router from "../router.js";
 import axiosClient from "../axios.js";
+import useUserStore from "../store/user.js";
+import {computed} from "vue";
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+const userStore = useUserStore()
+
+const user = computed(()=>userStore.user)
 const navigation = [
   { name: 'Upload',to:{name: 'Home'} },
   { name: 'My Images', to:{name: 'MyImages'} },
 
 ]
 
-function logout(){
+function logout(){ //sehr wichtig, Login/Logout hat erst damit richtig funktioniert.
   axiosClient.post('/logout')
       .then((response) =>{
-        router.push({name: 'Login'})
+        router.push({name: 'Login'})//redirect
       })
 }
 

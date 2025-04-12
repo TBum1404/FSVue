@@ -19,7 +19,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.response.use((response) => {
     return response;
 }, error => {
-    if (error.response && error.response.status === 401) {
+    if (error.response && error.response.status === 401) {//sehr wichtig denn wenn es den code 401 gibt, dann wird man direkt zum Loginfenster weitergeleitet
         router.push({name: 'Login'});
     }
 
