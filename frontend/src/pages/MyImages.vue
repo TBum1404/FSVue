@@ -1,11 +1,19 @@
 <script setup>
 
 //import { RouterView } from 'vue-router';
-const images =[
-  {id:1, label:'Test',url: 'http://localhost' },
-  {id:2, label:'Test',url: 'http://localhost' },
-  {id:3, label:'Test',url: 'http://localhost' },
-]
+import {onMounted, ref} from "vue";
+import axiosClient from "../axios.js";
+
+const images = ref([])
+
+onMounted(()=>{
+  axiosClient.get('/api/image')
+      .then((response)=>{
+        console.log(response.data);
+        images.value = response.data;
+      })
+})
+
 </script>
 
 <template>
