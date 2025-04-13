@@ -6,14 +6,15 @@ import router from './router.js'
 
 const axiosClient = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
-    withCredentials: true,
-    withXSRFToken: true
+    // withCredentials: true,
+    // withXSRFToken: true
 })
 
 // //tokenbased auth: interceptors neccesary
-// axiosClient.interceptors.request.use( config => {
-//     config.headers.Authorization =`Bearer ${localStorage.getItem('token')}` //" ` " is used for template literals not " ' "
-// })
+axiosClient.interceptors.request.use( config => {
+    config.headers.Authorization =`Bearer ${localStorage.getItem('token')}` //" ` " is used for template literals not " ' "
+    return config;
+})
 
 
 axiosClient.interceptors.response.use((response) => {

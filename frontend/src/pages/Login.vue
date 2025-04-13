@@ -16,16 +16,17 @@ const data= ref({
 const errorMessage = ref('')
 
 function submit() {
-  axiosClient.get('/sanctum/csrf-cookie').then(response => {
+  //axiosClient.get('/sanctum/csrf-cookie').then(response => {
     axiosClient.post("/login", data.value)
         .then(response=> {
+          localStorage.setItem('token', response.data.token) //token muss egal wo gespeichert werden. Pinia auch möglich
           router.push({name: 'Home'})
         })
         .catch(error => {
           console.log(error.response)
               errorMessage.value = error.response.data.message;
             })
-  })
+  //})
 }
 
 </script>
