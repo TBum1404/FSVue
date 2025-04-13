@@ -17,7 +17,8 @@ class ImageController extends Controller
      */
     public function index()
     {
-        return Image::all()
+        return Image::latest()
+            ->get()
             ->map(function ($image) {
                 return [
                     'id' => $image->id,
